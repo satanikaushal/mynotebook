@@ -10,8 +10,10 @@ export const Home = (props) => {
   const { fetchallnotes,editnote} = context;
   const [note, setNote] = useState({etitle:'',edescription:'',etag:'',eid:''});
   useEffect(() => {
+    props.myProgress(40)
     if(localStorage.getItem('token')){
     fetchallnotes();
+    props.myProgress(100);
   }
   else{
     history('/login');
@@ -19,21 +21,25 @@ export const Home = (props) => {
    // eslint-disable-next-line
   }, []);
   const handleClick =(e)=>{
+    props.myProgress(20);
       e.preventDefault();
       document.getElementById('authentication-modal').classList.toggle('hidden');
       editnote(note.eid,note.etitle, note.edescription, note.etag);
-    props.showAlert("Note updated successfully","text-green-500 bg-white py-3 border-2 fixed top-15");  
+    props.showAlert("Note updated successfully","text-green-500 bg-white py-3 border-2 fixed top-15"); 
+    props.myProgress(100); 
   }
   const onChange = (e)=>{
       setNote({...note,[e.target.name]:e.target.value});
   }
   const updateNote = (id, title, description, tag) => {
+    props.myProgress(10);
     document.getElementById('authentication-modal').classList.toggle('hidden');
     setNote({eid:id,etitle:title,edescription: description, etag:tag});
+    props.myProgress(100);
   };
   return (
     <div className="sm:w-[40vw] mx-auto rounded-lg my-1 sm:my-4 p-4 ">
-      <Addnote showAlert={props.showAlert} />
+      <Addnote myProgress={props.myProgress} showAlert={props.showAlert} />
 
       {/* <!-- Main modal --> */}
       <div id="authentication-modal"
@@ -127,7 +133,7 @@ export const Home = (props) => {
 
       <div className="my-8">
         <h2 className=" text-2xl font-semibold">Your Notes : </h2>
-        <Note updateNote={updateNote} showAlert={props.showAlert}/>
+        <Note myProgress={props.myProgress} updateNote={updateNote} showAlert={props.showAlert}/>
       </div>
     </div>
   );

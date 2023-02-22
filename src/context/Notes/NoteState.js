@@ -2,7 +2,6 @@ import { useState } from "react";
 import noteContext from "./noteContext";
 
 const NoteState = (props)=>{
-    const host = 'http://localhost:5000';
     const notei = [];
     const [notes, setNotes] = useState(notei)
 
@@ -10,7 +9,7 @@ const NoteState = (props)=>{
        //get all note 
        const fetchallnotes= async ()=>{
         //api call
-        const response = await fetch(`${host}/api/notes/fetchallnotes`, {
+        const response = await fetch(`https://mernappbackend-g13h.onrender.com/api/notes/fetchallnotes`, {
             method: 'GET',
             headers:{
                 'Content-Type':'application/json',
@@ -25,7 +24,7 @@ const NoteState = (props)=>{
       //add a note 
       const addnote= async (title,description,tag)=>{
         //api call
-        const response = await fetch(`${host}/api/notes/addnote`, {
+        const response = await fetch(`https://mernappbackend-g13h.onrender.com/api/notes/addnote`, {
             method: 'POST',
             headers:{
                 'Content-Type':'application/json',
@@ -41,7 +40,7 @@ const NoteState = (props)=>{
       //delete a not
       const deletenote= async (id)=>{
          //api call
-         fetch(`${host}/api/notes/deletenote/${id}`, {
+         fetch(`https://mernappbackend-g13h.onrender.com/api/notes/deletenote/${id}`, {
             method: 'DELETE',
             headers:{
                 'Content-Type':'application/json',
@@ -58,7 +57,7 @@ const NoteState = (props)=>{
       const editnote= async(id, title, description, tag)=>{
         console.log(id, title, description, tag)
         //api call
-        const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+        const response = await fetch(`https://mernappbackend-g13h.onrender.com/api/notes/updatenote/${id}`, {
             method: 'PUT',
             headers:{
                 'Content-Type':'application/json',

@@ -33,7 +33,9 @@ export const NoteItem = (props) => {
         }`}
       >
         <div className="p-1 rounded-lg bg-yellow-400 hover:scale-[1.1] hover:shadow-lg cursor-pointer" onClick={()=>{props.updateNote(props.id,props.title, props.description, props.tag)}}>Edit</div>
-        <div className="p-1 rounded-lg bg-red-500 hover:scale-[1.1] hover:shadow-lg cursor-pointer" onClick={()=>{deletenote(props.id);props.showAlert("Note deleted succesfully","text-green-500  bg-white py-3 border-2 fixed top-15")}}>Delete</div>
+        <div className="p-1 rounded-lg bg-red-500 hover:scale-[1.1] hover:shadow-lg cursor-pointer" onClick={()=>{
+          props.myProgress(30);
+          deletenote(props.id);props.showAlert("Note deleted succesfully","text-green-500  bg-white py-3 border-2 fixed top-15");props.myProgress(100)}}>Delete</div>
       </div>
     </div>
   );

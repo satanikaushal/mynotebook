@@ -1,16 +1,13 @@
 import React,{useState} from 'react'
 import { useNavigate } from 'react-router-dom';
-// import {useContext} from 'react';
-// import noteContext from '../context/Notes/noteContext';
 
 const Login = (props) => {
-  // const context = useContext(noteContext);
-  // const {fetchallnotes} = context;
 const [creds, setCreds] = useState({name:'',email:'',password:''});
 let history = useNavigate();
     const handleSubmit = async (e)=>{
+      props.myProgress(10);
         e.preventDefault();
-        const response = await fetch('http://localhost:5000/api/auth/login',{
+        const response = await fetch(`https://mernappbackend-g13h.onrender.com/api/auth/login`,{
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -19,14 +16,17 @@ let history = useNavigate();
         });
         const json = await response.json();
         if(json.success === true){
+          props.myProgress(60);
             //redirect and save the authtoken
             localStorage.setItem("token",json.authtoken);
             props.showAlert("Logged in successfully","text-green-500 bg-white py-3 border-2 fixed top-15")
+            
             history('/');
         }
         else{
           props.showAlert(json.error,"text-red-500 bg-white py-3 border-2 fixed top-15");
         }
+        props.myProgress(100);
     }
     const onChange = (e)=>{
       setCreds({...creds,[e.target.name]:e.target.value})

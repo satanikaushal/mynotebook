@@ -6,10 +6,12 @@ export const Addnote = (props) => {
     const {addnote} = context;
     const [note, setNote] = useState({title:'',description:'',tag:'General'});
     const handleClick =(e)=>{
+      props.myProgress(30);
         e.preventDefault();
         addnote(note.title,note.description,note.tag);
         setNote({title:'',description:'',tag:''});
         props.showAlert("Note added successfully","text-green-500 bg-white py-3 border-2 fixed top-15")
+        props.myProgress(100);
     }
     const onChange = (e)=>{
         setNote({...note,[e.target.name]:e.target.value})

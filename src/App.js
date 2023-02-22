@@ -8,8 +8,10 @@ import { Alert } from "./components/Alert";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import { useState } from "react";
+import LoadingBar from 'react-top-loading-bar'
 
 function App() {
+  const [progress, setProgress] = useState(0)
   const [alert, setAlert] = useState({});
   const showAlert=(message, color)=>{
   setAlert({
@@ -22,17 +24,23 @@ function App() {
     });
   }, 2500);
   }
+  const myProgress = (num)=>{
+    setProgress(num);
+  }
   return (
     <>
       <NoteState>
         <Router>
           <Navbar />
+          <LoadingBar
+        color='#f11946'
+        progress={progress}/>
           <Alert alert={alert}/>
           <Routes>
-            <Route exact path="/" element={<Home showAlert={showAlert} />}/>
+            <Route exact path="/" element={<Home myProgress={myProgress} showAlert={showAlert} />}/>
             <Route exact path="/about" element={<About/>}/>
-            <Route exact path="/login" element={<Login showAlert={showAlert}/>}/>
-            <Route exact path="/signup" element={<Signup showAlert={showAlert}/>}/>
+            <Route exact path="/login" element={<Login myProgress={myProgress} showAlert={showAlert}/>}/>
+            <Route exact path="/signup" element={<Signup myProgress={myProgress} showAlert={showAlert}/>}/>
           </Routes>
         </Router>
       </NoteState>
